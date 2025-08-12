@@ -1,13 +1,19 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Seo } from "@/components/Seo";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <main className="container py-16 text-center">
+      <Seo title="InfluenceOS – Emergent-style Content Builder" description="Create, visualize, and schedule AI-powered posts with a fluid, modern UI." canonicalPath="/" />
+      <h1 className="mb-4 text-4xl font-bold">Welcome to InfluenceOS</h1>
+      <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
+        Start with the One-Click Content Pipeline to generate text, image, and hashtags in real-time.
+      </p>
+      <Link to="/pipeline" className="contents">
+        <Button size="lg" className="hover-scale">Launch Pipeline</Button>
+      </Link>
+    </main>
   );
 };
 
