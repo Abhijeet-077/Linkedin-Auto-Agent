@@ -8,6 +8,7 @@ import { Scheduler } from "@/components/pipeline/Scheduler";
 import { startPipeline, type PipelineEvent } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 import { Seo } from "@/components/Seo";
+import { motion } from "framer-motion";
 
 const initialSteps: Step[] = [
   { key: "draft", label: "Drafting post text", status: "pending" },
@@ -59,16 +60,33 @@ const Pipeline = () => {
   };
 
   return (
-    <main className="container py-8">
+    <motion.main 
+      className="container py-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <Seo
         title="One-Click Content Pipeline | InfluenceOS"
         description="Generate social posts with AI text, image, and hashtags—Emergent-style UI with real-time progress."
         canonicalPath="/pipeline"
       />
-      <h1 className="mb-6 text-3xl font-bold tracking-tight">One-Click Content Pipeline</h1>
+      <motion.h1 
+        className="mb-6 text-3xl font-bold tracking-tight"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        One-Click Content Pipeline
+      </motion.h1>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <section className="space-y-4">
+        <motion.section 
+          className="space-y-4"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 }}
+        >
           <Card>
             <CardHeader>
               <CardTitle>Topic</CardTitle>
@@ -78,8 +96,14 @@ const Pipeline = () => {
                 placeholder="e.g., How AI boosts creator productivity"
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
               />
-              <Button onClick={handleGenerate} className="hover-scale">Generate</Button>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button onClick={handleGenerate} className="hover-scale">Generate</Button>
+              </motion.div>
             </CardContent>
           </Card>
 
@@ -91,14 +115,19 @@ const Pipeline = () => {
               <AgentTimeline steps={steps} />
             </CardContent>
           </Card>
-        </section>
+        </motion.section>
 
-        <section className="space-y-4">
+        <motion.section 
+          className="space-y-4"
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4 }}
+        >
           <ContentPreview text={text} imageUrl={imageUrl} hashtags={hashtags} />
           <Scheduler onSchedule={async () => { /* integrate with backend later */ }} />
-        </section>
+        </motion.section>
       </div>
-    </main>
+    </motion.main>
   );
 };
 
