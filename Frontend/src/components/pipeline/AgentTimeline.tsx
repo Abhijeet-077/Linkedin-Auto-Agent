@@ -54,8 +54,8 @@ export const AgentTimeline = ({ steps }: AgentTimelineProps) => {
   }, [steps]);
 
   return (
-    <div className="relative overflow-hidden">
-      <ol className="relative ml-2 border-l border-border/50 pl-6 z-10">
+    <div className="relative min-h-[300px] p-2">
+      <ol className="relative ml-2 border-l border-border/50 pl-6">
         <AnimatePresence>
           {steps.map((s, idx) => (
             <motion.li
@@ -63,27 +63,35 @@ export const AgentTimeline = ({ steps }: AgentTimelineProps) => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: idx * 0.1 }}
-              className="mb-8 relative z-20 min-h-[60px]"
+              className="mb-8 relative min-h-[50px]"
             >
+            {/* Timeline Dot */}
             <motion.div
               className={cn(
-                "absolute -left-3 mt-1 rounded-full bg-background p-1 border-2 transition-all duration-300 z-30",
-                "w-6 h-6 flex items-center justify-center",
-                s.status === "running" && "ai-processing glow-primary pulse-dot",
-                s.status === "done" && "glow-accent border-primary/30",
+                "absolute -left-[0.875rem] mt-1.5 rounded-full bg-background border-2 transition-all duration-300",
+                "w-4 h-4 flex items-center justify-center z-10",
+                s.status === "running" && "border-primary/50 shadow-lg shadow-primary/25",
+                s.status === "done" && "border-primary/30 bg-primary/10",
                 s.status === "pending" && "border-muted-foreground/30",
                 s.status === "error" && "border-destructive/50"
               )}
               whileHover={{ scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              {/* Particle effects for running state */}
+              {/* Subtle glow effect for running state */}
               {s.status === "running" && (
-                <div className="absolute inset-0 particle-container overflow-hidden rounded-full z-10">
-                  {particles.map((_, i) => (
-                    <Particle key={i} delay={i * 0.2} />
-                  ))}
-                </div>
+                <motion.div
+                  className="absolute inset-0 rounded-full bg-primary/20"
+                  animate={{
+                    scale: [1, 1.4, 1],
+                    opacity: [0.3, 0.6, 0.3]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
               )}
 
               <AnimatePresence mode="wait">
@@ -97,12 +105,12 @@ export const AgentTimeline = ({ steps }: AgentTimelineProps) => {
                     }}
                     exit={{ scale: 0 }}
                     transition={{
-                      rotate: { repeat: Infinity, duration: 1, ease: "linear" },
+                      rotate: { repeat: Infinity, duration: 1.5, ease: "linear" },
                       scale: { type: "spring", stiffness: 300 }
                     }}
-                    className="relative z-40"
+                    className="relative z-10"
                   >
-                    <Loader2 className="w-4 h-4 text-primary" />
+                    <Loader2 className="w-3 h-3 text-primary" />
                   </motion.div>
                 )}
                 {s.status === "pending" && (
@@ -111,9 +119,9 @@ export const AgentTimeline = ({ steps }: AgentTimelineProps) => {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
-                    className="relative z-40"
+                    className="relative z-10"
                   >
-                    <Circle className="w-4 h-4 text-muted-foreground" />
+                    <Circle className="w-3 h-3 text-muted-foreground" />
                   </motion.div>
                 )}
                 {s.status === "done" && (
@@ -130,15 +138,9 @@ export const AgentTimeline = ({ steps }: AgentTimelineProps) => {
                       stiffness: 300,
                       damping: 20
                     }}
-                    className="relative z-40"
+                    className="relative z-10"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-primary" />
-                    <motion.div
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: [0, 1.5, 0], opacity: [0, 1, 0] }}
-                      transition={{ duration: 0.6, delay: 0.2 }}
-                      className="absolute inset-0 rounded-full bg-primary/20"
-                    />
+                    <CheckCircle2 className="w-3 h-3 text-primary" />
                   </motion.div>
                 )}
                 {s.status === "error" && (
@@ -147,119 +149,87 @@ export const AgentTimeline = ({ steps }: AgentTimelineProps) => {
                     initial={{ scale: 0 }}
                     animate={{
                       scale: 1,
-                      x: [0, -2, 2, -2, 2, 0]
+                      x: [0, -1, 1, -1, 1, 0]
                     }}
                     exit={{ scale: 0 }}
                     transition={{
                       scale: { type: "spring", stiffness: 300 },
-                      x: { duration: 0.5, delay: 0.2 }
+                      x: { duration: 0.4, delay: 0.1 }
                     }}
-                    className="relative z-40"
+                    className="relative z-10"
                   >
-                    <XCircle className="w-4 h-4 text-destructive" />
+                    <XCircle className="w-3 h-3 text-destructive" />
                   </motion.div>
                 )}
               </AnimatePresence>
             </motion.div>
-            <motion.div
-              className={cn(
-                "text-sm transition-all duration-300",
-                s.status === "running" && "font-medium text-primary",
-                s.status === "done" && "text-primary/80",
-                s.status === "error" && "text-destructive"
-              )}
-              animate={{
-                opacity: s.status === "running" ? [1, 0.7, 1] : 1,
-                x: s.status === "running" ? [0, 2, 0] : 0
-              }}
-              transition={{
-                repeat: s.status === "running" ? Infinity : 0,
-                duration: 1.5
-              }}
-            >
-              {s.label}
-              {s.status === "running" && (
-                <motion.span
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="ml-2 inline-block"
-                >
-                  <Sparkles className="w-3 h-3 text-primary animate-pulse" />
-                </motion.span>
-              )}
-            </motion.div>
-            <motion.div
-              className={cn(
-                "text-xs transition-colors duration-300",
-                s.status === "running" && "text-primary/70",
-                s.status === "done" && "text-primary/60",
-                s.status === "error" && "text-destructive/70",
-                s.status === "pending" && "text-muted-foreground"
-              )}
-              animate={{
-                opacity: s.status === "running" ? [0.7, 1, 0.7] : 1
-              }}
-              transition={{
-                repeat: s.status === "running" ? Infinity : 0,
-                duration: 2
-              }}
-            >
-              {s.status === "pending" && "Waiting"}
-              {s.status === "running" && (
-                <span className="flex items-center gap-1">
-                  Processing
+            {/* Content Container */}
+            <div className="relative pl-2">
+              <motion.div
+                className={cn(
+                  "text-sm font-medium transition-all duration-300 mb-1",
+                  s.status === "running" && "text-primary",
+                  s.status === "done" && "text-primary/80",
+                  s.status === "error" && "text-destructive",
+                  s.status === "pending" && "text-muted-foreground"
+                )}
+                animate={{
+                  opacity: s.status === "running" ? [1, 0.8, 1] : 1
+                }}
+                transition={{
+                  repeat: s.status === "running" ? Infinity : 0,
+                  duration: 2
+                }}
+              >
+                {s.label}
+                {s.status === "running" && (
                   <motion.span
-                    animate={{ opacity: [0, 1, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.5 }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="ml-2 inline-block"
                   >
-                    ...
+                    <Sparkles className="w-3 h-3 text-primary animate-pulse" />
                   </motion.span>
-                </span>
-              )}
-              {s.status === "done" && (
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  ✨ Completed
-                </motion.span>
-              )}
-              {s.status === "error" && "❌ Error occurred"}
-            </motion.div>
+                )}
+              </motion.div>
+
+              <motion.div
+                className={cn(
+                  "text-xs transition-colors duration-300",
+                  s.status === "running" && "text-primary/70",
+                  s.status === "done" && "text-primary/60",
+                  s.status === "error" && "text-destructive/70",
+                  s.status === "pending" && "text-muted-foreground/70"
+                )}
+              >
+                {s.status === "pending" && "Waiting to start..."}
+                {s.status === "running" && (
+                  <span className="flex items-center gap-1">
+                    Processing
+                    <motion.span
+                      animate={{ opacity: [0, 1, 0] }}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                    >
+                      ...
+                    </motion.span>
+                  </span>
+                )}
+                {s.status === "done" && (
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    ✨ Completed successfully
+                  </motion.span>
+                )}
+                {s.status === "error" && "❌ Error occurred"}
+              </motion.div>
+            </div>
           </motion.li>
         ))}
       </AnimatePresence>
     </ol>
-
-    {/* Background particle effects for active processing */}
-    {particles.length > 0 && (
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/15 rounded-full"
-            initial={{
-              opacity: 0,
-              x: Math.random() * 200,
-              y: Math.random() * 150
-            }}
-            animate={{
-              opacity: [0, 0.4, 0],
-              x: Math.random() * 200,
-              y: Math.random() * 150,
-              scale: [0, 1, 0]
-            }}
-            transition={{
-              duration: 4,
-              delay: i * 0.4,
-              repeat: Infinity,
-              repeatDelay: Math.random() * 3
-            }}
-          />
-        ))}
-      </div>
-    )}
   </div>
   );
 };

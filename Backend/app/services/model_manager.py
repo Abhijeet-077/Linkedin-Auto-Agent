@@ -24,6 +24,14 @@ except ImportError as e:
     rag_pipeline = None
 
 try:
+    from app.services.image_generator import image_generator
+    IMAGE_GENERATOR_AVAILABLE = True
+except ImportError as e:
+    IMAGE_GENERATOR_AVAILABLE = False
+    logger.warning(f"Image generator not available: {e}")
+    image_generator = None
+
+try:
     import openai
     OPENAI_AVAILABLE = True
 except ImportError:
@@ -367,6 +375,36 @@ LinkedIn Post:"""
         except Exception as e:
             logger.error(f"OpenRouter generation failed: {e}")
             raise
+
+    async def generate_image(self, topic: str, content_text: str = "") -> str:
+        """Generate professional image for the content"""
+        try:
+            logger.info("🎨 Starting image generation")
+
+            # Try open-source image generator first
+            if IMAGE_GENERATOR_AVAILABLE:
+                try:
+                    image_url = await image_generator.generate_image(topic, content_text, "professional")
+                    if image_url:
+                        logger.info("✅ Image generated with open-source model")
+                        return image_url
+                except Exception as e:
+                    logger.warning(f"Open-source image generation failed: {e}")
+
+            # Try OpenRouter API as fallback
+            try:
+                image_url = await self._generate_image_with_openrouter(topic, content_text)
+                if image_url:
+                    return image_url
+            except Exception as e:
+                logger.warning(f"OpenRouter image generation failed: {e}")
+
+            # Final fallback to professional stock images
+            return await self._generate_placeholder_image(topic)
+
+        except Exception as e:
+            logger.error(f"Image generation failed: {e}")
+            return await self._generate_placeholder_image(topic)
 
     async def _generate_image_with_openrouter(self, topic: str, content_text: str) -> str:
         """Generate image using OpenRouter API with DALL-E or similar model"""

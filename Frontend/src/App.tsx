@@ -7,6 +7,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { Header } from "@/components/layout/Header";
 import Pipeline from "@/pages/Pipeline";
+import EnhancedPipeline from "@/pages/EnhancedPipeline";
+import Dashboard from "@/pages/Dashboard";
 import Analytics from "@/pages/Analytics";
 import Profile from "@/pages/Profile";
 import Outreach from "@/pages/Outreach";
@@ -28,7 +30,9 @@ const App = () => (
               <ErrorBoundary>
                 <Routes>
                   <Route path="/" element={<Index />} />
-                  <Route path="/pipeline" element={<Pipeline />} />
+                  <Route path="/pipeline" element={<EnhancedPipeline />} />
+                  <Route path="/pipeline-classic" element={<Pipeline />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/analytics" element={<Analytics />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/outreach" element={<Outreach />} />

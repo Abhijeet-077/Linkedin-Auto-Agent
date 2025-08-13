@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "working_server.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "working_server.py"
+    }
+  ],
+  "env": {
+    "OPENROUTER_API_KEY": "@openrouter_api_key",
+    "OPENROUTER_BASE_URL": "https://openrouter.ai/api/v1",
+    "HUGGINGFACE_TOKEN": "@huggingface_token",
+    "HOST": "0.0.0.0",
+    "PORT": "8000",
+    "DEBUG": "false",
+    "SECRET_KEY": "@secret_key",
+    "LOG_LEVEL": "INFO"
+  },
+  "functions": {
+    "working_server.py": {
+      "maxDuration": 30
+    }
+  }
+}

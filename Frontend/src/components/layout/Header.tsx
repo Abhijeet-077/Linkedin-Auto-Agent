@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const nav = [
+  { to: "/dashboard", label: "Dashboard" },
   { to: "/pipeline", label: "Pipeline" },
   { to: "/analytics", label: "Analytics" },
   { to: "/profile", label: "Profile" },

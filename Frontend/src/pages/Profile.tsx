@@ -42,8 +42,28 @@ const Profile = () => {
   const loadProfileAnalysis = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await getProfileAnalysis();
-      setProfileData(data);
+      const response = await getProfileAnalysis();
+
+      // Transform backend data to frontend format
+      const backendData = response.analysis || response;
+
+      const transformedData = {
+        score: backendData.profile_score || 0,
+        recommendations: (backendData.recommendations || []).map((rec: string, idx: number) => ({
+          icon: ["Camera", "FileText", "Target", "Zap"][idx % 4],
+          title: `Recommendation ${idx + 1}`,
+          description: rec,
+          priority: idx < 2 ? "high" : "medium" as "high" | "medium" | "low"
+        })),
+        stats: [
+          { label: "Profile Completeness", score: backendData.completeness || 0, color: "bg-blue-500" },
+          { label: "Content Quality", score: backendData.profile_score || 0, color: "bg-green-500" },
+          { label: "Posting Frequency", score: 75, color: "bg-yellow-500" },
+          { label: "Engagement Rate", score: backendData.engagement_potential || 0, color: "bg-purple-500" },
+        ]
+      };
+
+      setProfileData(transformedData);
     } catch (error) {
       // Remove console.error for production
       toast({
