@@ -28,9 +28,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-print("🚀 InfluenceOS Working Server Starting...")
-print("🔗 Server will be available at: http://localhost:8000")
-print("📚 API docs will be available at: http://localhost:8000/docs")
+print("InfluenceOS Working Server Starting...")
+print("Server will be available at: http://localhost:8000")
+print("API docs will be available at: http://localhost:8000/docs")
 
 # ============================================================================
 # CONTENT GENERATION
@@ -41,13 +41,13 @@ def generate_professional_content(topic: str) -> Dict[str, Any]:
 
     # Enhanced topic-specific content templates
     content_templates = {
-        "ai": f"🤖 The AI revolution is transforming how we approach {topic}!\n\nAs artificial intelligence continues to reshape our professional landscape, understanding its impact on {topic} has become crucial for staying competitive. Here are the key insights every professional should know:\n\n✅ AI enhances human creativity and decision-making capabilities\n✅ Data-driven insights are becoming the foundation of strategic planning\n✅ Continuous learning and adaptation are essential for career growth\n✅ Ethical AI implementation builds long-term trust and sustainability\n✅ Collaboration between humans and AI creates unprecedented opportunities\n\nThe organizations and professionals who thrive in this new era are those who view AI not as a threat, but as a powerful ally in achieving their goals.\n\nWhat's your experience with AI in {topic}? How has it changed your approach to work? Share your insights below! 👇",
+        "ai": f"",
         
-        "business": f"📈 Strategic insights on {topic} that are reshaping modern business!\n\nIn today's rapidly evolving marketplace, mastering {topic} has become essential for sustainable growth and competitive advantage. Here's what forward-thinking leaders are implementing:\n\n✅ Customer-centric strategies that prioritize genuine value creation\n✅ Digital transformation initiatives that streamline operations\n✅ Agile methodologies that enable rapid adaptation to market changes\n✅ Data-driven decision making that reduces risk and maximizes ROI\n✅ Innovation cultures that encourage experimentation and learning\n\nThe businesses that thrive in this environment don't just react to change—they anticipate it, prepare for it, and often lead it. Success in {topic} requires both strategic vision and tactical execution.\n\nWhat's been your most effective strategy for {topic}? I'd love to hear about your wins and lessons learned! 💬",
+        "business": f"",
         
-        "leadership": f"👥 Leadership excellence in {topic}!\n\nGreat leaders understand that {topic} is not just about processes—it's about people. Here are the principles that drive exceptional leadership:\n\n✅ Authentic communication builds trust and engagement\n✅ Empowering teams unleashes collective potential\n✅ Continuous feedback creates a culture of growth\n✅ Vision alignment ensures everyone moves in the same direction\n\nThe best leaders don't just manage—they inspire, guide, and develop others. By focusing on {topic}, we create environments where both individuals and organizations thrive.\n\nWhat leadership lessons have shaped your approach? Share your story! 🌟",
+        "leadership": f"",
         
-        "technology": f"💻 Innovation spotlight: {topic}!\n\nTechnology continues to reshape how we work, connect, and create value. Understanding {topic} is essential for staying ahead in our digital-first world:\n\n✅ Emerging technologies create new possibilities\n✅ Integration strategies maximize existing investments\n✅ User experience drives adoption and success\n✅ Security and privacy remain paramount concerns\n\nThe organizations that thrive are those that view technology not as a cost center, but as a strategic enabler of growth and innovation.\n\nHow has {topic} impacted your organization? What trends are you watching? 🚀"
+        "technology": f""
     }
     
     # Determine content type based on topic
@@ -67,7 +67,7 @@ def generate_professional_content(topic: str) -> Dict[str, Any]:
         hashtags = ["#Technology", "#Innovation", "#DigitalTransformation", "#TechTrends", "#Software", "#Data", "#LinkedIn", "#Professional"]
     else:
         # Default professional content
-        content = f"💡 Professional insights on {topic}!\n\nIn today's rapidly evolving professional landscape, staying informed about {topic} is crucial for career growth and business success. Here are key takeaways:\n\n✅ Continuous learning drives professional excellence\n✅ Networking creates valuable opportunities\n✅ Innovation mindset enables breakthrough solutions\n✅ Collaboration amplifies individual strengths\n\nSuccess in {topic} requires both strategic thinking and practical execution. By focusing on value creation and meaningful relationships, we build sustainable professional growth.\n\nWhat's your experience with {topic}? I'd love to hear your insights! 💭"
+        content = f""
         hashtags = ["#Professional", "#Growth", "#Success", "#Innovation", "#LinkedIn", "#Networking", "#CareerDevelopment", "#Business"]
     
     # Get appropriate image
@@ -174,12 +174,12 @@ async def generate_content(request: Request):
         data = await request.json()
         topic = data.get("topic", "Professional Development")
         
-        print(f"🎯 Generating content for topic: {topic}")
+        print(f"")
         
         # Generate professional content
         result = generate_professional_content(topic)
         
-        print(f"✅ Content generated: {len(result['text'])} characters")
+        print(f"")
         
         return {
             "success": True,
@@ -188,7 +188,7 @@ async def generate_content(request: Request):
         }
         
     except Exception as e:
-        print(f"❌ Content generation failed: {e}")
+        print(f"")
         return JSONResponse(
             status_code=500,
             content={
@@ -205,7 +205,7 @@ async def generate_image_endpoint(request: Request):
         data = await request.json()
         topic = data.get("topic", "Professional")
         
-        print(f"🎨 Generating image for topic: {topic}")
+        print(f"")
         
         image_url = get_professional_image(topic)
         
@@ -216,7 +216,7 @@ async def generate_image_endpoint(request: Request):
         }
         
     except Exception as e:
-        print(f"❌ Image generation failed: {e}")
+        print(f"")
         return JSONResponse(
             status_code=500,
             content={
@@ -239,8 +239,8 @@ async def get_analytics():
             "total_shares": 34,
             "growth_rate": 15.3,
             "insights": [
-                "🎉 Excellent engagement rate! Your content resonates well with your audience.",
-                "🕐 Best posting times appear to be Tuesday-Thursday, 9-11 AM",
+                "",
+                "",
                 "📊 Visual content (carousels, images) tends to perform better",
                 "💬 Posts with questions generate 40% more comments"
             ]
@@ -311,8 +311,8 @@ async def get_engagement_analytics():
             "engagement_rate": 4.2,
             "growth_rate": 15.3,
             "insights": [
-                "🎉 Excellent engagement rate! Your content resonates well with your audience.",
-                "🕐 Best posting times appear to be Tuesday-Thursday, 9-11 AM",
+                "",
+                "",
                 "📊 Visual content (carousels, images) tends to perform better"
             ]
         },
@@ -336,8 +336,8 @@ async def get_engagement_analytics_alt():
             "impressions": 8500,
             "click_through_rate": 2.8,
             "insights": [
-                "🎉 Excellent engagement rate! Your content resonates well with your audience.",
-                "🕐 Best posting times appear to be Tuesday-Thursday, 9-11 AM",
+                "",
+                "",
                 "📊 Visual content (carousels, images) tends to perform better",
                 "💬 Posts with questions generate 40% more comments"
             ]
@@ -465,8 +465,8 @@ async def get_engagement_analytics_dashboard(user_id: str = "default", time_peri
                 "reach_growth": 12.1
             },
             "insights": [
-                "🎉 Excellent engagement rate! Your content resonates well with your audience.",
-                "🕐 Best posting times appear to be Tuesday-Thursday, 9-11 AM",
+                "",
+                "",
                 "📊 Visual content (carousels, images) tends to perform better",
                 "💬 Posts with questions generate 40% more comments"
             ]

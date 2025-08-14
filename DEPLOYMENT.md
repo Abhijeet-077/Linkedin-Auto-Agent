@@ -24,35 +24,50 @@ npm run dev
 
 ## Vercel Deployment
 
-### ✅ Single Project Deployment (Recommended)
+### 🚀 Frontend-Only Deployment (Recommended)
 
-The project is now configured for **automatic deployment** from GitHub:
+This configuration deploys only the Frontend as a static site with mock API data.
 
-#### 1. GitHub Integration
-- Connect your GitHub repository to Vercel
-- Vercel will automatically detect the configuration
-- Push to `main` branch triggers automatic deployment
+#### Step 1: Vercel Project Setup
+1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
+2. Click "New Project"
+3. Import your GitHub repository
+4. **Important**: Set Root Directory to `Frontend`
+5. Framework Preset: `Vite`
+6. Build Command: `npm run build`
+7. Output Directory: `dist`
 
-#### 2. Manual Deployment
+#### Step 2: Environment Variables (Optional)
+In Vercel Dashboard → Settings → Environment Variables:
+```
+VITE_API_BASE_URL=https://your-backend-url.com
+```
+
+#### Step 3: Deploy
+- Push to `main` branch for automatic deployment
+- Or use Vercel CLI: `vercel --prod`
+
+### 🔧 Manual Deployment with Vercel CLI
+
 ```bash
-# From repository root
-npm run build
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy from Frontend directory
+cd Frontend
 vercel --prod
 ```
 
-#### 3. Environment Variables (Optional)
-Set in Vercel dashboard if using real backend:
-- `VITE_API_BASE_URL`: Your backend API URL
-
-### 🔧 Configuration Details
-- **Build Command**: `npm run build` (builds Frontend from root)
-- **Output Directory**: `Frontend/dist`
-- **Framework**: Automatically detected as Vite/React
-- **Routing**: SPA routing configured for React Router
+### ⚙️ Build Configuration
+- **Framework**: Vite + React + TypeScript
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
+- **Node Version**: 18.x or higher
+- **Package Manager**: npm
 
 ## Features
 - ✅ AI Content Generation Pipeline
-- ✅ Analytics Dashboard  
+- ✅ Analytics Dashboard
 - ✅ Profile Management
 - ✅ Outreach Tools
 - ✅ Content Scheduling

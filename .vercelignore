@@ -1,0 +1,8 @@
+Backend/
+*.py
+*.pyc
+__pycache__/
+requirements.txt
+start.bat
+README.md
+DEPLOYMENT.md

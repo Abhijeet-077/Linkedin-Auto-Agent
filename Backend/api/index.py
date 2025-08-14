@@ -237,15 +237,25 @@ async def health_check():
         }
     }
 
+from app.services.content_service import schedule_post, get_scheduled_posts, generate_intelligent_post
+
 @app.post("/api/v1/pipeline/generate")
 async def generate_content(request: Request):
     """Generate content using AI pipeline"""
     try:
         data = await request.json()
         topic = data.get("topic", "Professional Development")
-        
-        # Generate content
-        result = await generate_content_with_openrouter(topic)
+        use_intelligent_mode = data.get("useIntelligentMode", False)
+
+        if use_intelligent_mode:
+            # In a real app, user email would come from auth session
+            user_email = "test@example.com"
+            user_profile = get_user_profile(user_email)
+            if not user_profile:
+                raise HTTPException(status_code=404, detail="User not found")
+            result = generate_intelligent_post(topic, user_profile)
+        else:
+            result = await generate_content_with_openrouter(topic)
         
         return {
             "success": True,
@@ -289,57 +299,245 @@ async def generate_image_endpoint(request: Request):
             }
         )
 
+from app.services.analytics_service import get_basic_analytics
+
 @app.get("/api/v1/analytics")
 async def get_analytics():
     """Get analytics data"""
-    return {
-        "success": True,
-        "analytics": {
-            "total_posts": 25,
-            "engagement_rate": 4.2,
-            "total_likes": 1250,
-            "total_comments": 89,
-            "total_shares": 34,
-            "growth_rate": 15.3
-        },
-        "generated_at": datetime.now().isoformat()
-    }
+    try:
+        # In a real app, user_id would come from auth session
+        user_id = "f47ac10b-58cc-4372-a567-0e02b2c3d479" # A dummy UUID
+
+        analytics_data = get_basic_analytics(user_id)
+
+        return {
+            "success": True,
+            "analytics": analytics_data,
+            "generated_at": datetime.now().isoformat()
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "Failed to retrieve analytics"
+            }
+        )
+
+
+from app.services.user_service import create_user, get_user_by_email, get_user_profile
 
 @app.get("/api/v1/profile/analyze")
 async def analyze_profile():
     """Analyze LinkedIn profile"""
-    return {
-        "success": True,
-        "analysis": {
-            "profile_score": 85,
-            "completeness": 92,
-            "engagement_potential": 78,
-            "recommendations": [
-                "Add more industry-specific keywords",
-                "Increase posting frequency",
-                "Engage more with comments"
-            ]
-        },
-        "generated_at": datetime.now().isoformat()
-    }
+    try:
+        # In a real app, user email would come from auth session
+        user_email = "test@example.com" 
+        profile = get_user_profile(user_email)
+
+        if not profile:
+            # Create a dummy user for demonstration if one doesn't exist
+            create_user(email=user_email, username="testuser", full_name="Test User", bio="This is a test bio.")
+            profile = get_user_profile(user_email)
+
+        if not profile:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        # Simple analysis logic
+        recommendations = []
+        if not profile.get('bio'):
+            recommendations.append("Add a bio to your profile to tell people more about yourself.")
+        if not profile.get('linkedin_profile_url'):
+            recommendations.append("Add your LinkedIn profile URL to make it easy for people to find you.")
+        if not profile.get('industry'):
+            recommendations.append("Add your industry to help people understand your area of expertise.")
+
+        profile_score = 100 - (len(recommendations) * 25)
+
+        return {
+            "success": True,
+            "analysis": {
+                "profile_score": profile_score,
+                "completeness": 100 - (len(recommendations) * 25),
+                "engagement_potential": 78, # static for now
+                "recommendations": recommendations if recommendations else ["Your profile is looking great!"],
+            },
+            "generated_at": datetime.now().isoformat()
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "Profile analysis failed"
+            }
+        )
+
+
+from app.services.user_service import create_user, get_user_by_email
+
+class UserCreate(BaseModel):
+    email: str
+    username: str
+    full_name: str
+    avatar_url: Optional[str] = None
+    linkedin_profile_url: Optional[str] = None
+    bio: Optional[str] = None
+    industry: Optional[str] = None
+    location: Optional[str] = None
+
+@app.post("/api/v1/profile/create")
+async def create_user_profile(user: UserCreate):
+    """Create a new user profile."""
+    try:
+        existing_user = get_user_by_email(user.email)
+        if existing_user:
+            raise HTTPException(status_code=400, detail="Email already registered")
+
+        new_user = create_user(
+            email=user.email,
+            username=user.username,
+            full_name=user.full_name,
+            avatar_url=user.avatar_url,
+            linkedin_profile_url=user.linkedin_profile_url,
+            bio=user.bio,
+            industry=user.industry,
+            location=user.location
+        )
+
+        if new_user:
+            return {"success": True, "user": new_user}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to create user")
+
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "User profile creation failed"
+            }
+        )
+
+from app.services.content_service import schedule_post, get_scheduled_posts
+
+class ScheduleRequest(BaseModel):
+    text: str
+    imageUrl: Optional[str] = None
+    hashtags: Optional[List[str]] = None
+    scheduledTime: datetime
+
+@app.post("/api/v1/schedule")
+async def schedule_post_endpoint(request: ScheduleRequest):
+    """Schedule a new post."""
+    try:
+        # In a real app, user_id would come from auth session
+        user_id = "f47ac10b-58cc-4372-a567-0e02b2c3d479" # A dummy UUID
+        
+        new_post = schedule_post(
+            user_id=user_id,
+            content=request.text,
+            scheduled_time=request.scheduledTime,
+            hashtags=request.hashtags,
+            image_url=request.imageUrl
+        )
+
+        if new_post:
+            return {"success": True, "post": new_post}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to schedule post")
+
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "Post scheduling failed"
+            }
+        )
+
+@app.get("/api/v1/content/calendar")
+async def get_content_calendar(user_id: str = Query("f47ac10b-58cc-4372-a567-0e02b2c3d479")):
+    """Get scheduled posts for a user."""
+    try:
+        posts = get_scheduled_posts(user_id)
+        return {"success": True, "calendar": {"scheduled_posts": posts}}
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "Failed to retrieve content calendar"
+            }
+        )
+
+from app.services.outreach_service import get_outreach_campaigns, create_outreach_campaign
+
+class OutreachCampaignCreate(BaseModel):
+    name: str
+    description: Optional[str] = None
+    target_audience: Optional[str] = None
+    message_template: Optional[str] = None
+
+@app.post("/api/v1/outreach/campaigns")
+async def create_outreach_campaign_endpoint(campaign: OutreachCampaignCreate):
+    """Create a new outreach campaign."""
+    try:
+        # In a real app, user_id would come from auth session
+        user_id = "f47ac10b-58cc-4372-a567-0e02b2c3d479" # A dummy UUID
+
+        new_campaign = create_outreach_campaign(
+            user_id=user_id,
+            name=campaign.name,
+            description=campaign.description,
+            target_audience=campaign.target_audience,
+            message_template=campaign.message_template
+        )
+
+        if new_campaign:
+            return {"success": True, "campaign": new_campaign}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to create outreach campaign")
+
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "Outreach campaign creation failed"
+            }
+        )
 
 @app.get("/api/v1/outreach/campaigns")
-async def get_outreach_campaigns():
+async def get_outreach_campaigns_endpoint():
     """Get outreach campaigns"""
-    return {
-        "success": True,
-        "campaigns": [
-            {
-                "id": "campaign_1",
-                "name": "Industry Leaders Outreach",
-                "status": "active",
-                "sent": 45,
-                "responses": 12,
-                "response_rate": 26.7
+    try:
+        # In a real app, user_id would come from auth session
+        user_id = "f47ac10b-58cc-4372-a567-0e02b2c3d479" # A dummy UUID
+
+        campaigns = get_outreach_campaigns(user_id)
+
+        return {
+            "success": True,
+            "campaigns": campaigns,
+            "generated_at": datetime.now().isoformat()
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "Failed to retrieve outreach campaigns"
             }
-        ],
-        "generated_at": datetime.now().isoformat()
-    }
+        )
+
 
 # Export the app for Vercel
 handler = app
