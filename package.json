@@ -1,0 +1,37 @@
+{
+  "name": "linkedin-auto-agent",
+  "version": "1.0.0",
+  "description": "AI-Powered LinkedIn Content Generation & Management Platform",
+  "private": true,
+  "workspaces": [
+    "Frontend"
+  ],
+  "scripts": {
+    "build": "cd Frontend && npm run build",
+    "dev": "cd Frontend && npm run dev",
+    "start": "cd Frontend && npm run preview",
+    "install-frontend": "cd Frontend && npm install",
+    "install-backend": "cd Backend && pip install -r requirements.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Abhijeet-077/LinkedIn-Auto-Agent.git"
+  },
+  "keywords": [
+    "linkedin",
+    "ai",
+    "content-generation",
+    "social-media",
+    "automation",
+    "react",
+    "typescript",
+    "fastapi",
+    "python"
+  ],
+  "author": "Abhijeet",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

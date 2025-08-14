@@ -7,17 +7,9 @@
       "config": {
         "distDir": "dist"
       }
-    },
-    {
-      "src": "Backend/api/index.py",
-      "use": "@vercel/python"
     }
   ],
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
@@ -52,10 +44,11 @@
     }
   ],
   "env": {
-    "VITE_API_BASE_URL": "https://linkedin-auto-agent.vercel.app",
-    "VITE_USE_MOCK_API": "false"
+    "VITE_API_BASE_URL": "https://linkedin-auto-agent-api.vercel.app",
+    "VITE_USE_MOCK_API": "true",
+    "VITE_GITHUB_PAGES": "false"
   },
-  "installCommand": "cd Frontend && npm install",
+  "installCommand": "cd Frontend && npm ci",
   "buildCommand": "cd Frontend && npm run build",
   "outputDirectory": "Frontend/dist"
 }
