@@ -16,6 +16,12 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 
 const queryClient = new QueryClient();
 
+// Get basename for GitHub Pages deployment
+const getBasename = () => {
+  const isGitHubPages = import.meta.env.PROD && window.location.hostname.includes('github.io');
+  return isGitHubPages ? '/linkedin-forge-AutoAgent' : '';
+};
+
 const App = () => (
   <ErrorBoundary>
     <ThemeProvider>
@@ -23,7 +29,10 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <BrowserRouter
+            basename={getBasename()}
+            future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+          >
             <div className="min-h-screen flex flex-col transition-colors duration-300">
               <Header />
               <ErrorBoundary>

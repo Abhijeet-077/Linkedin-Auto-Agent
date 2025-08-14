@@ -5,6 +5,8 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // GitHub Pages deployment configuration
+  base: mode === 'production' ? '/linkedin-forge-AutoAgent/' : '/',
   server: {
     host: "::",
     port: 8080,
@@ -20,6 +22,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
     rollupOptions: {
       output: {
         manualChunks: {
@@ -33,5 +37,12 @@ export default defineConfig(({ mode }) => ({
       },
     },
     chunkSizeWarningLimit: 1000,
+    // Ensure proper asset handling for GitHub Pages
+    sourcemap: false,
+    minify: 'esbuild',
+  },
+  // Define environment variables for different modes
+  define: {
+    __GITHUB_PAGES__: mode === 'production',
   },
 }));

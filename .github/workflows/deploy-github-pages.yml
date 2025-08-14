@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy LinkedIn Forge AutoAgent to GitHub Pages
 
 on:
   push:
@@ -41,7 +41,8 @@ jobs:
         cd Frontend
         npm run build
       env:
-        VITE_API_BASE_URL: https://your-backend-domain.vercel.app
+        VITE_USE_MOCK_API: 'true'
+        VITE_API_BASE_URL: 'https://your-backend-api.vercel.app'
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
