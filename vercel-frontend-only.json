@@ -1,8 +1,9 @@
 {
   "version": 2,
+  "name": "linkedin-auto-agent-frontend",
   "builds": [
     {
-      "src": "package.json",
+      "src": "Frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist"
@@ -45,6 +46,10 @@
   ],
   "env": {
     "VITE_API_BASE_URL": "https://linkedin-auto-agent-api.vercel.app",
-    "VITE_USE_MOCK_API": "true"
-  }
+    "VITE_USE_MOCK_API": "true",
+    "VITE_GITHUB_PAGES": "false"
+  },
+  "installCommand": "cd Frontend && npm install",
+  "buildCommand": "cd Frontend && npm run build",
+  "outputDirectory": "Frontend/dist"
 }
