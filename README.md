@@ -10,10 +10,10 @@
 [![Vite](https://img.shields.io/badge/Vite-5.4.19-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![GitHub Stars](https://img.shields.io/github/stars/username/LinkedIn-Auto-Agent?style=for-the-badge)](https://github.com/username/LinkedIn-Auto-Agent/stargazers)
-[![GitHub Issues](https://img.shields.io/github/issues/username/LinkedIn-Auto-Agent?style=for-the-badge)](https://github.com/username/LinkedIn-Auto-Agent/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/Abhijeet-077/LinkedIn-Auto-Agent?style=for-the-badge)](https://github.com/Abhijeet-077/LinkedIn-Auto-Agent/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/Abhijeet-077/LinkedIn-Auto-Agent?style=for-the-badge)](https://github.com/Abhijeet-077/LinkedIn-Auto-Agent/issues)
 
-[🌟 Live Demo](https://linkedin-auto-agent.vercel.app) • [📖 Documentation](https://github.com/username/LinkedIn-Auto-Agent/wiki) • [🐛 Report Bug](https://github.com/username/LinkedIn-Auto-Agent/issues) • [💡 Request Feature](https://github.com/username/LinkedIn-Auto-Agent/issues)
+[🌟 Live Demo](https://linkedin-auto-agent.vercel.app) • [📖 Documentation](https://github.com/Abhijeet-077/LinkedIn-Auto-Agent/wiki) • [🐛 Report Bug](https://github.com/Abhijeet-077/LinkedIn-Auto-Agent/issues) • [💡 Request Feature](https://github.com/Abhijeet-077/LinkedIn-Auto-Agent/issues)
 
 </div>
 
@@ -343,7 +343,7 @@ We welcome contributions from the community! Here's how you can help:
 
 1. **Fork the repository**
    ```bash
-   git fork https://github.com/username/LinkedIn-Auto-Agent.git
+   git fork https://github.com/Abhijeet-077/LinkedIn-Auto-Agent.git
    ```
 
 2. **Create a feature branch**
@@ -420,11 +420,11 @@ SOFTWARE.
 
 <div align="center">
 
-**Created with ❤️ by [Your Name](https://github.com/username)**
+**Created with ❤️ by [Abhijeet](https://github.com/Abhijeet-077)**
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/username)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/username)
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/username)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Abhijeet-077)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/abhijeet-077)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/abhijeet_077)
 
 </div>
 
@@ -440,7 +440,7 @@ SOFTWARE.
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=username/LinkedIn-Auto-Agent&type=Date)](https://star-history.com/#username/LinkedIn-Auto-Agent&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Abhijeet-077/LinkedIn-Auto-Agent&type=Date)](https://star-history.com/#Abhijeet-077/LinkedIn-Auto-Agent&Date)
 
 ---
 
