@@ -3,18 +3,33 @@
   "builds": [
     {
       "src": "Frontend/package.json",
-      "use": "@vercel/static-build",
+      "use": "@vercel/node",
       "config": {
-        "distDir": "Frontend/dist"
+        "includeFiles": ["Frontend/**"]
+      }
+    },
+    {
+      "src": "Backend/api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb",
+        "runtime": "python3.9"
       }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/api/(.*)",
+      "destination": "Backend/api/index.py"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
+  "installCommand": "npm install --prefix Frontend && pip install -r Backend/requirements.txt",
+  "buildCommand": "npm run build --prefix Frontend",
+  "outputDirectory": "Frontend/dist",
   "headers": [
     {
       "source": "/assets/(.*)",
