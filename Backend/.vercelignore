@@ -1,0 +1,21 @@
+# Ignore Python cache and virtual environment directories
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Ignore test-related files and directories
+tests/
+*.test.py
+
+# Ignore development-specific tools not needed in production
+uvicorn/
+
+# Ignore common editor/IDE files
+.vscode/
+.idea/
+
+# Ignore any local data or logs
+*.log
+data/
