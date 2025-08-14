@@ -1,4 +1,4 @@
-# InfluenceOS Deployment Guide
+# LinkedIn Forge AutoAgent - Deployment Guide
 
 ## Local Development
 
@@ -12,7 +12,7 @@ start.bat
 cd Backend
 python working_server.py
 
-# Terminal 2 - Frontend  
+# Terminal 2 - Frontend
 cd Frontend
 npm run dev
 ```
@@ -24,37 +24,31 @@ npm run dev
 
 ## Vercel Deployment
 
-### Important: Deploy as Separate Projects
+### ✅ Single Project Deployment (Recommended)
 
-#### 1. Deploy Backend First
+The project is now configured for **automatic deployment** from GitHub:
+
+#### 1. GitHub Integration
+- Connect your GitHub repository to Vercel
+- Vercel will automatically detect the configuration
+- Push to `main` branch triggers automatic deployment
+
+#### 2. Manual Deployment
 ```bash
-cd Backend
+# From repository root
+npm run build
 vercel --prod
 ```
-Note the deployed URL (e.g., https://your-backend.vercel.app)
 
-#### 2. Deploy Frontend
-```bash
-cd Frontend
-# Update .env.production with backend URL
-echo "VITE_API_BASE_URL=https://your-backend.vercel.app" > .env.production
-vercel --prod
-```
+#### 3. Environment Variables (Optional)
+Set in Vercel dashboard if using real backend:
+- `VITE_API_BASE_URL`: Your backend API URL
 
-### Environment Variables
-Set in Vercel dashboard for Backend:
-- `OPENROUTER_API_KEY`: Your OpenRouter API key
-- `HUGGINGFACE_TOKEN`: Your Hugging Face token
-- `SECRET_KEY`: Random secret key
-
-Set in Vercel dashboard for Frontend:
-- `VITE_API_BASE_URL`: Your backend Vercel URL
-
-### Deployment Steps:
-1. Create two separate Vercel projects
-2. Deploy Backend project from `/Backend` folder
-3. Deploy Frontend project from `/Frontend` folder
-4. Update Frontend environment variables with Backend URL
+### 🔧 Configuration Details
+- **Build Command**: `npm run build` (builds Frontend from root)
+- **Output Directory**: `Frontend/dist`
+- **Framework**: Automatically detected as Vite/React
+- **Routing**: SPA routing configured for React Router
 
 ## Features
 - ✅ AI Content Generation Pipeline

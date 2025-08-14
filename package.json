@@ -1,0 +1,13 @@
+{
+  "name": "linkedin-forge-autoagent",
+  "version": "1.0.0",
+  "description": "AI-powered LinkedIn content generation and management platform",
+  "scripts": {
+    "build": "cd Frontend && npm install && npm run build",
+    "dev": "cd Frontend && npm run dev",
+    "start": "cd Frontend && npm run preview"
+  },
+  "keywords": ["linkedin", "ai", "content-generation", "social-media"],
+  "author": "Abhijeet",
+  "license": "MIT"
+}
