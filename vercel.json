@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "Frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "Frontend/dist"
+      }
+    },
+    {
+      "src": "Backend/api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "Backend/api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "Frontend/dist/$1"
+    }
+  ],
+  "env": {
+    "VITE_API_BASE_URL": "https://emergent-linkedin-forge.vercel.app",
+    "VITE_USE_MOCK_API": "false"
+  },
+  "installCommand": "cd Frontend && npm install",
+  "buildCommand": "cd Frontend && npm run build"
+}

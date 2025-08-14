@@ -1,4 +1,4 @@
-name: Deploy LinkedIn Forge AutoAgent to GitHub Pages
+name: Deploy InfluenceOS to GitHub Pages
 
 on:
   push:
@@ -42,7 +42,8 @@ jobs:
         npm run build
       env:
         VITE_USE_MOCK_API: 'true'
-        VITE_API_BASE_URL: 'https://your-backend-api.vercel.app'
+        VITE_API_BASE_URL: 'https://emergent-linkedin-forge.vercel.app'
+        VITE_GITHUB_PAGES: 'true'
         
     - name: Setup Pages
       uses: actions/configure-pages@v4

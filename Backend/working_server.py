@@ -41,13 +41,13 @@ def generate_professional_content(topic: str) -> Dict[str, Any]:
 
     # Enhanced topic-specific content templates
     content_templates = {
-        "ai": f"",
-        
-        "business": f"",
-        
-        "leadership": f"",
-        
-        "technology": f""
+        "ai": f"🚀 The Future of AI in {topic}\n\nArtificial Intelligence is revolutionizing how we work, think, and solve complex problems. Here are key insights that every professional should know:\n\n✅ AI augments human capabilities rather than replacing them\n✅ Data quality is crucial for successful AI implementation\n✅ Ethical AI practices build trust and sustainable growth\n✅ Continuous learning is essential in the AI era\n\nThe organizations that embrace AI thoughtfully today will lead tomorrow's innovations. It's not about the technology itself, but how we apply it to create meaningful value.\n\nWhat's your experience with AI in your industry? Share your thoughts below! 👇",
+
+        "business": f"💼 Strategic Insights on {topic}\n\nIn today's competitive landscape, successful businesses share common traits that set them apart. Here's what I've learned about driving sustainable growth:\n\n✅ Customer-centric thinking drives innovation\n✅ Data-driven decisions outperform gut instincts\n✅ Agile adaptation beats rigid planning\n✅ Strong company culture attracts top talent\n\nThe most successful leaders I know focus on building systems that scale, not just solving immediate problems. They invest in their people, embrace change, and never stop learning.\n\nWhat business strategy has made the biggest impact in your organization? Let's discuss! 💬",
+
+        "leadership": f"👥 Leadership Lessons from {topic}\n\nGreat leadership isn't about having all the answers—it's about asking the right questions and empowering others to find solutions. Here are principles that transform teams:\n\n✅ Listen more than you speak\n✅ Provide clear vision and context\n✅ Celebrate failures as learning opportunities\n✅ Invest in your team's growth consistently\n\nThe best leaders I've worked with create psychological safety where innovation thrives. They understand that their success is measured by their team's success, not individual achievements.\n\nWhat leadership principle has had the most impact on your career? Share your story! 🌟",
+
+        "technology": f"⚡ Technology Trends in {topic}\n\nTechnology moves fast, but successful implementation requires strategic thinking. Here's what's shaping the future of how we work:\n\n✅ Cloud-first approaches enable scalability\n✅ Automation frees humans for creative work\n✅ Security must be built-in, not bolted-on\n✅ User experience drives adoption success\n\nThe companies winning today aren't just using the latest tech—they're solving real problems with the right tools. It's about finding the sweet spot between innovation and practicality.\n\nWhich technology trend is making the biggest impact in your field? Let's explore together! 🔍"
     }
     
     # Determine content type based on topic
@@ -67,7 +67,7 @@ def generate_professional_content(topic: str) -> Dict[str, Any]:
         hashtags = ["#Technology", "#Innovation", "#DigitalTransformation", "#TechTrends", "#Software", "#Data", "#LinkedIn", "#Professional"]
     else:
         # Default professional content
-        content = f""
+        content = f"🌟 Professional Growth Through {topic}\n\nEvery day presents new opportunities to learn, grow, and make a meaningful impact. Here's what I've discovered about professional development:\n\n✅ Consistency beats perfection every time\n✅ Network with purpose, not just for numbers\n✅ Share knowledge generously—it comes back multiplied\n✅ Embrace challenges as growth accelerators\n\nThe most successful professionals I know treat every interaction as a chance to add value. They focus on building relationships, not just advancing careers.\n\nWhat's one lesson about {topic} that changed your perspective? I'd love to hear your insights! 💭"
         hashtags = ["#Professional", "#Growth", "#Success", "#Innovation", "#LinkedIn", "#Networking", "#CareerDevelopment", "#Business"]
     
     # Get appropriate image
@@ -174,12 +174,12 @@ async def generate_content(request: Request):
         data = await request.json()
         topic = data.get("topic", "Professional Development")
         
-        print(f"")
-        
+        print(f"🎯 Generating content for topic: {topic}")
+
         # Generate professional content
         result = generate_professional_content(topic)
-        
-        print(f"")
+
+        print(f"✅ Content generated successfully with {len(result.get('hashtags', []))} hashtags")
         
         return {
             "success": True,
@@ -188,7 +188,7 @@ async def generate_content(request: Request):
         }
         
     except Exception as e:
-        print(f"")
+        print(f"❌ Content generation error: {str(e)}")
         return JSONResponse(
             status_code=500,
             content={
@@ -205,8 +205,8 @@ async def generate_image_endpoint(request: Request):
         data = await request.json()
         topic = data.get("topic", "Professional")
         
-        print(f"")
-        
+        print(f"🖼️ Generating image for topic: {topic}")
+
         image_url = get_professional_image(topic)
         
         return {
@@ -216,7 +216,7 @@ async def generate_image_endpoint(request: Request):
         }
         
     except Exception as e:
-        print(f"")
+        print(f"❌ Image generation error: {str(e)}")
         return JSONResponse(
             status_code=500,
             content={
@@ -239,8 +239,8 @@ async def get_analytics():
             "total_shares": 34,
             "growth_rate": 15.3,
             "insights": [
-                "",
-                "",
+                "🚀 Your engagement rate is 15% above industry average",
+                "📈 Best posting times are Tuesday-Thursday 9-11 AM",
                 "📊 Visual content (carousels, images) tends to perform better",
                 "💬 Posts with questions generate 40% more comments"
             ]
@@ -311,8 +311,8 @@ async def get_engagement_analytics():
             "engagement_rate": 4.2,
             "growth_rate": 15.3,
             "insights": [
-                "",
-                "",
+                "🎯 Your content performs best on weekdays",
+                "📱 Mobile engagement is 60% higher than desktop",
                 "📊 Visual content (carousels, images) tends to perform better"
             ]
         },
@@ -336,8 +336,8 @@ async def get_engagement_analytics_alt():
             "impressions": 8500,
             "click_through_rate": 2.8,
             "insights": [
-                "",
-                "",
+                "⭐ Your reach has grown 25% this month",
+                "🔥 Industry-specific content gets 3x more engagement",
                 "📊 Visual content (carousels, images) tends to perform better",
                 "💬 Posts with questions generate 40% more comments"
             ]
@@ -465,8 +465,8 @@ async def get_engagement_analytics_dashboard(user_id: str = "default", time_peri
                 "reach_growth": 12.1
             },
             "insights": [
-                "",
-                "",
+                "🎉 Your engagement rate is consistently improving",
+                "💡 Thought leadership posts drive the most connections",
                 "📊 Visual content (carousels, images) tends to perform better",
                 "💬 Posts with questions generate 40% more comments"
             ]
@@ -519,6 +519,193 @@ async def get_optimal_times_dashboard(industry: str = "Technology", role: str = 
         ],
         "generated_at": datetime.now().isoformat()
     }
+
+# ============================================================================
+# MISSING PROFILE ENDPOINTS
+# ============================================================================
+
+@app.get("/api/v1/profile/analysis")
+async def get_profile_analysis():
+    """Get profile analysis - alternative endpoint"""
+    return {
+        "success": True,
+        "analysis": {
+            "profile_score": 85,
+            "completeness": 92,
+            "engagement_potential": 78,
+            "recommendations": [
+                "Add a professional headshot to increase profile views by 40%",
+                "Include 3-5 key skills in your headline for better discoverability",
+                "Write a compelling summary that showcases your unique value proposition",
+                "Add recent work samples to demonstrate your expertise"
+            ],
+            "strengths": [
+                "Strong professional network with 500+ connections",
+                "Regular content posting shows thought leadership",
+                "Complete work experience section",
+                "Active engagement with industry discussions"
+            ],
+            "areas_for_improvement": [
+                "Profile photo could be more professional",
+                "Summary section needs more personality",
+                "Missing key industry keywords",
+                "Could benefit from more multimedia content"
+            ]
+        },
+        "generated_at": datetime.now().isoformat()
+    }
+
+@app.post("/api/v1/profile/connect-linkedin")
+async def connect_linkedin():
+    """Connect LinkedIn profile"""
+    return {
+        "success": True,
+        "message": "LinkedIn connection initiated",
+        "auth_url": "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=demo&redirect_uri=http://localhost:8080/auth/callback&scope=r_liteprofile%20r_emailaddress%20w_member_social",
+        "generated_at": datetime.now().isoformat()
+    }
+
+@app.post("/api/v1/profile/create")
+async def create_profile_endpoint(request: Request):
+    """Create user profile"""
+    try:
+        data = await request.json()
+
+        return {
+            "success": True,
+            "profile": {
+                "id": f"profile_{datetime.now().timestamp()}",
+                "name": data.get("name", ""),
+                "title": data.get("title", ""),
+                "company": data.get("company", ""),
+                "industry": data.get("industry", ""),
+                "bio": data.get("bio", ""),
+                "created_at": datetime.now().isoformat()
+            },
+            "message": "Profile created successfully"
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "Profile creation failed"
+            }
+        )
+
+# ============================================================================
+# MISSING OUTREACH ENDPOINTS
+# ============================================================================
+
+@app.get("/api/v1/outreach/templates")
+async def get_outreach_templates():
+    """Get outreach templates"""
+    return {
+        "success": True,
+        "templates": [
+            {"id": 1, "name": "Collaboration Proposal", "category": "Partnership"},
+            {"id": 2, "name": "Guest Post Invitation", "category": "Content"},
+            {"id": 3, "name": "Podcast Interview", "category": "Media"},
+            {"id": 4, "name": "Industry Expert Connect", "category": "Networking"},
+            {"id": 5, "name": "Mentorship Request", "category": "Learning"},
+            {"id": 6, "name": "Speaking Opportunity", "category": "Events"}
+        ],
+        "generated_at": datetime.now().isoformat()
+    }
+
+@app.post("/api/v1/outreach/campaigns")
+async def create_outreach_campaign_endpoint(request: Request):
+    """Create outreach campaign"""
+    try:
+        data = await request.json()
+
+        campaign_data = {
+            "id": f"campaign_{datetime.now().timestamp()}",
+            "name": data.get("name", ""),
+            "message": data.get("message", ""),
+            "targets": data.get("targets", []),
+            "status": "draft",
+            "sent": 0,
+            "responses": 0,
+            "created_at": datetime.now().isoformat()
+        }
+
+        return {
+            "success": True,
+            "campaign": campaign_data,
+            "message": "Campaign created successfully"
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "Campaign creation failed"
+            }
+        )
+
+# ============================================================================
+# MISSING CONTENT ENDPOINTS
+# ============================================================================
+
+@app.post("/api/v1/schedule")
+async def schedule_post_endpoint(request: Request):
+    """Schedule a post"""
+    try:
+        data = await request.json()
+
+        post_data = {
+            "id": f"scheduled_{datetime.now().timestamp()}",
+            "text": data.get("text", ""),
+            "imageUrl": data.get("imageUrl"),
+            "hashtags": data.get("hashtags", []),
+            "scheduledTime": data.get("scheduledTime"),
+            "status": "scheduled",
+            "created_at": datetime.now().isoformat()
+        }
+
+        return {
+            "success": True,
+            "post": post_data,
+            "message": "Post scheduled successfully"
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "Post scheduling failed"
+            }
+        )
+
+@app.post("/api/v1/content/intelligent-generate")
+async def generate_intelligent_content_endpoint(request: Request):
+    """Generate intelligent content"""
+    try:
+        data = await request.json()
+        topic = data.get("topic", "Professional Development")
+        user_profile = data.get("user_profile", {})
+
+        # Generate content based on user profile
+        result = generate_professional_content(topic)
+
+        return {
+            "success": True,
+            "content": result,
+            "generated_at": datetime.now().isoformat()
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "error": str(e),
+                "message": "Intelligent content generation failed"
+            }
+        )
 
 # ============================================================================
 # SERVER STARTUP
