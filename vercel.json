@@ -5,7 +5,8 @@
       "src": "Frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "Frontend/dist"
+        "distDir": "dist",
+        "framework": null
       }
     },
     {
@@ -19,14 +20,19 @@
       "dest": "Backend/api/index.py"
     },
     {
+      "src": "/assets/(.*)",
+      "dest": "Frontend/dist/assets/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "Frontend/dist/$1"
+      "dest": "Frontend/dist/index.html"
     }
   ],
   "env": {
-    "VITE_API_BASE_URL": "https://emergent-linkedin-forge.vercel.app",
+    "VITE_API_BASE_URL": "https://linkedin-auto-agent.vercel.app",
     "VITE_USE_MOCK_API": "false"
   },
   "installCommand": "cd Frontend && npm install",
-  "buildCommand": "cd Frontend && npm run build"
+  "buildCommand": "cd Frontend && npm run build",
+  "outputDirectory": "Frontend/dist"
 }

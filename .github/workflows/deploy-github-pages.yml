@@ -1,9 +1,7 @@
-name: Deploy InfluenceOS to GitHub Pages
+name: Deploy LinkedIn Auto Agent to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
   workflow_dispatch:
 
@@ -19,35 +17,36 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: 'npm'
         cache-dependency-path: Frontend/package-lock.json
-        
+
     - name: Install dependencies
       run: |
         cd Frontend
         npm ci
-        
+
     - name: Build application
       run: |
         cd Frontend
         npm run build
       env:
         VITE_USE_MOCK_API: 'true'
-        VITE_API_BASE_URL: 'https://emergent-linkedin-forge.vercel.app'
+        VITE_API_BASE_URL: 'https://linkedin-auto-agent.vercel.app'
         VITE_GITHUB_PAGES: 'true'
-        
+        NODE_ENV: 'production'
+
     - name: Setup Pages
       uses: actions/configure-pages@v4
-      
+
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
@@ -60,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     if: github.ref == 'refs/heads/main'
-    
+
     steps:
     - name: Deploy to GitHub Pages
       id: deployment

@@ -1,8 +1,27 @@
-Backend/
-*.py
-*.pyc
-__pycache__/
-requirements.txt
+# Development scripts
 start.bat
-README.md
-DEPLOYMENT.md
+start.sh
+test-deployment.bat
+test-deployment.sh
+push-to-github.bat
+
+# Documentation (keep README.md for Vercel)
+CONTRIBUTING.md
+DEPLOYMENT_STATUS.md
+
+# Environment examples
+*.example
+
+# Cache and logs
+__pycache__/
+*.pyc
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
