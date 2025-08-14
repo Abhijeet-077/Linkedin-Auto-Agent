@@ -264,13 +264,22 @@ const Analytics = () => {
                     transition={{ delay: 0.6 + idx * 0.1 }}
                     className="flex items-center justify-between p-4 rounded-lg border"
                   >
-                    <div>
-                      <h3 className="font-medium">{post.title}</h3>
-                      <p className="text-sm text-muted-foreground">{post.date}</p>
+                    <div className="flex-1">
+                      <h3 className="font-medium line-clamp-2">{post.content?.substring(0, 80)}...</h3>
+                      <p className="text-sm text-muted-foreground">{new Date(post.date).toLocaleDateString()}</p>
                     </div>
                     <div className="flex items-center gap-4 text-sm">
-                      <span>{post.reach} reach</span>
-                      <Badge variant="outline">{post.engagement} engagement</Badge>
+                      <div className="flex items-center gap-2">
+                        <Heart className="w-4 h-4" />
+                        <span>{post.engagement?.likes || 0}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MessageSquare className="w-4 h-4" />
+                        <span>{post.engagement?.comments || 0}</span>
+                      </div>
+                      <Badge variant="outline">
+                        {((post.engagement?.likes || 0) + (post.engagement?.comments || 0) + (post.engagement?.shares || 0))} total
+                      </Badge>
                     </div>
                   </motion.div>
                   ))

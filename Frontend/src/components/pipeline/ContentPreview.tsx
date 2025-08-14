@@ -136,6 +136,14 @@ export const ContentPreview = ({ text, imageUrl, hashtags, isGenerating }: Conte
                     alt="AI generated social post visual"
                     loading="lazy"
                     className="h-56 w-full rounded-lg object-cover border border-primary/20"
+                    onError={(e) => {
+                      console.warn('Image failed to load:', imageUrl);
+                      // Fallback to a professional placeholder
+                      (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop";
+                    }}
+                    onLoad={() => {
+                      console.log('Image loaded successfully:', imageUrl);
+                    }}
                   />
                   <motion.div
                     initial={{ opacity: 0 }}

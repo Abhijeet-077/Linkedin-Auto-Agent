@@ -437,6 +437,89 @@ async def get_posts(limit: int = 10, offset: int = 0):
         "generated_at": datetime.now().isoformat()
     }
 
+@app.get("/api/v1/engagement/analytics")
+async def get_engagement_analytics_dashboard(user_id: str = "default", time_period: str = "30d"):
+    """Get engagement analytics for Dashboard"""
+    return {
+        "success": True,
+        "analytics": {
+            "total_metrics": {
+                "likes": 1250,
+                "comments": 89,
+                "shares": 34,
+                "views": 5600,
+                "reach": 4200
+            },
+            "average_metrics": {
+                "likes": 50.0,
+                "comments": 3.6,
+                "shares": 1.4,
+                "views": 224.0,
+                "reach": 168.0
+            },
+            "engagement_rate": 4.2,
+            "total_posts": 25,
+            "growth_trends": {
+                "engagement_growth": 15.3,
+                "follower_growth": 8.7,
+                "reach_growth": 12.1
+            },
+            "insights": [
+                "🎉 Excellent engagement rate! Your content resonates well with your audience.",
+                "🕐 Best posting times appear to be Tuesday-Thursday, 9-11 AM",
+                "📊 Visual content (carousels, images) tends to perform better",
+                "💬 Posts with questions generate 40% more comments"
+            ]
+        },
+        "generated_at": datetime.now().isoformat()
+    }
+
+@app.get("/api/v1/content/calendar")
+async def get_content_calendar_dashboard(start_date: str = None, end_date: str = None, user_id: str = "default"):
+    """Get content calendar data for Dashboard"""
+    return {
+        "success": True,
+        "calendar": {
+            "scheduled_posts": [
+                {
+                    "id": "post_1",
+                    "content": {
+                        "text": "AI Trends in Business: How artificial intelligence is transforming modern enterprises..."
+                    },
+                    "scheduled_time": "2024-01-16T09:00:00Z",
+                    "post_type": "text",
+                    "status": "scheduled"
+                },
+                {
+                    "id": "post_2",
+                    "content": {
+                        "text": "Leadership Insights: Building effective teams in the digital age requires..."
+                    },
+                    "scheduled_time": "2024-01-17T14:00:00Z",
+                    "post_type": "carousel",
+                    "status": "draft"
+                }
+            ],
+            "total_scheduled": 2
+        },
+        "generated_at": datetime.now().isoformat()
+    }
+
+@app.get("/api/v1/content/optimal-times")
+async def get_optimal_times_dashboard(industry: str = "Technology", role: str = "Professional", target_audience: str = "professional"):
+    """Get optimal posting times for Dashboard"""
+    return {
+        "success": True,
+        "optimal_times": [
+            {"day": "Monday", "time": "09:00", "engagement_score": 85},
+            {"day": "Tuesday", "time": "10:00", "engagement_score": 92},
+            {"day": "Wednesday", "time": "09:30", "engagement_score": 88},
+            {"day": "Thursday", "time": "11:00", "engagement_score": 90},
+            {"day": "Friday", "time": "08:30", "engagement_score": 78}
+        ],
+        "generated_at": datetime.now().isoformat()
+    }
+
 # ============================================================================
 # SERVER STARTUP
 # ============================================================================

@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { Header } from "@/components/layout/Header";
-import Pipeline from "@/pages/Pipeline";
 import EnhancedPipeline from "@/pages/EnhancedPipeline";
 import Dashboard from "@/pages/Dashboard";
 import Analytics from "@/pages/Analytics";
@@ -31,7 +30,6 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/pipeline" element={<EnhancedPipeline />} />
-                  <Route path="/pipeline-classic" element={<Pipeline />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/analytics" element={<Analytics />} />
                   <Route path="/profile" element={<Profile />} />

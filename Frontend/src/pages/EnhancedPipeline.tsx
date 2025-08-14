@@ -119,31 +119,20 @@ const EnhancedPipeline = () => {
     }
 
     try {
-      if (useIntelligentMode) {
-        // Use intelligent content generation
-        const request: ContentGenerationRequest = {
-          topic: topic.trim(),
-          user_profile: userProfile,
-          content_type: contentType,
-          target_audience: targetAudience
-        };
+      // Reset steps to initial state
+      setSteps(initialSteps);
+      setText(undefined);
+      setImageUrl(undefined);
+      setHashtags(undefined);
+      setIsGenerating(true);
 
-        // Simulate intelligent pipeline with enhanced steps
-        const { jobId: newJobId, cancel } = startPipeline(topic, onEvent);
-        setJobId(newJobId);
-        
-        // Enhanced event simulation for intelligent mode
-        setTimeout(() => onEvent({ type: "status", payload: { step: "analysis", status: "running" } }), 100);
-        setTimeout(() => onEvent({ type: "status", payload: { step: "analysis", status: "done" } }), 800);
-        setTimeout(() => onEvent({ type: "status", payload: { step: "draft", status: "running" } }), 900);
-        
-      } else {
-        // Use standard pipeline
-        const { jobId: newJobId, cancel } = startPipeline(topic, onEvent);
-        setJobId(newJobId);
-      }
+      // Start the pipeline - this will handle all the steps automatically
+      const { jobId: newJobId, cancel } = startPipeline(topic.trim(), onEvent);
+      setJobId(newJobId);
+
     } catch (error) {
       console.error('Content generation failed:', error);
+      setIsGenerating(false);
       toast({
         title: "Generation Failed",
         description: "Failed to start content generation. Please try again.",
