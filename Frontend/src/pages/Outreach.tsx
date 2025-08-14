@@ -7,7 +7,7 @@ import { Users, MessageSquare, Send, Calendar, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Seo } from "@/components/Seo";
-import { getOutreachCampaigns, createOutreachCampaign, getOutreachTemplates } from "@/lib/api";
+import { getOutreachCampaigns, createOutreachCampaign, getOutreachTemplates } from "../lib/api";
 import { useToast } from "@/hooks/use-toast";
 
 // Mock outreach data

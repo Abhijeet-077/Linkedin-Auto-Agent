@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { startPipeline, generateIntelligentContent, type PipelineEvent, type UserProfile, type ContentGenerationRequest } from "@/lib/api";
+import { startPipeline, generateIntelligentContent, type PipelineEvent, type UserProfile, type ContentGenerationRequest } from "../lib/api";
 import { AgentTimeline, type Step } from "@/components/pipeline/AgentTimeline";
 import { ContentPreview } from "@/components/pipeline/ContentPreview";
 import { Scheduler } from "@/components/pipeline/Scheduler";

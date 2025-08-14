@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getEngagementAnalytics, getContentCalendar, getOptimalPostingTimes, getDateRange, getNextWeekRange } from "@/lib/api";
+import { getEngagementAnalytics, getContentCalendar, getOptimalPostingTimes, getDateRange, getNextWeekRange } from "../lib/api";
 import { useToast } from "@/hooks/use-toast";
 import { Seo } from "@/components/Seo";
 import {

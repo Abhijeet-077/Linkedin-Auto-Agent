@@ -7,7 +7,7 @@ import { User, Camera, FileText, Target, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Seo } from "@/components/Seo";
 import { useEffect, useState, useCallback } from "react";
-import { getProfileAnalysis, connectLinkedIn, createProfile } from "@/lib/api";
+import { getProfileAnalysis, connectLinkedIn, createProfile } from "../lib/api";
 import { useToast } from "@/hooks/use-toast";
 
 interface ProfileData {

@@ -5,7 +5,7 @@ import { TrendingUp, Users, MessageSquare, Heart, RefreshCw } from "lucide-react
 import { motion } from "framer-motion";
 import { Seo } from "@/components/Seo";
 import { useEffect, useState } from "react";
-import { getAnalytics, createNewPost } from "@/lib/api";
+import { getAnalytics, createNewPost } from "../lib/api";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
